@@ -1,8 +1,13 @@
+import ShoppingList from "./ShoppingList";
+import MainCarousel from "./MainCarousel";
 
-const Home = () => {
+function Home() {
   return (
-    <div>Home</div>
-  )
+    <div className="home">
+      <MainCarousel />
+      <ShoppingList />
+    </div>
+  );
 }
 
-export default Home
+export default Home;

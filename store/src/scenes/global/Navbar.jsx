@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
 import {
-  PersonOutline,
   ShoppingBagOutlined,
   MenuOutlined,
-  SearchOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
@@ -48,12 +46,7 @@ function Navbar() {
           columnGap="20px"
           zIndex="2"
         >
-          <IconButton sx={{ color: "black" }}>
-            <SearchOutlined />
-          </IconButton>
-          <IconButton sx={{ color: "black" }}>
-            <PersonOutline />
-          </IconButton>
+         
           <Badge
             badgeContent={cart.length}
             color="secondary"

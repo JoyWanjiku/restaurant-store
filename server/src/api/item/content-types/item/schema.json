@@ -35,10 +35,10 @@
     "diet": {
       "type": "enumeration",
       "enum": [
-        "gluten free",
-        "lactose free",
+        "glutenFree",
+        "lactoseFree",
         "vegetarian",
-        "contains gluten, lactose and meat"
+        "containsAll"
       ]
     }
   }
