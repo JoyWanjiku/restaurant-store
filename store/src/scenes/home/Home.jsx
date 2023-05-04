@@ -1,11 +1,11 @@
-import ShoppingList from "./ShoppingList";
-import MainCarousel from "./MainCarousel";
+import Menu from "./Menu";
+import HeroSection from "./HeroSection";
 
 function Home() {
   return (
     <div className="home">
-      <MainCarousel />
-      <ShoppingList />
+      <HeroSection />
+      <Menu />
     </div>
   );
 }

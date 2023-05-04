@@ -5,10 +5,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
 import { addToCart } from "../state";
-import { useNavigate } from "react-router-dom";
 
 const Item = ({ item, width }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
@@ -16,7 +14,7 @@ const Item = ({ item, width }) => {
     palette: { neutral },
   } = useTheme();
 
-  const { diet, price, title, image } = item.attributes;
+  const { diet, price, title, image, description } = item.attributes;
   const {
     data: {
       attributes: {
@@ -35,11 +33,10 @@ const Item = ({ item, width }) => {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          alt={item.name}
+          alt={item.title}
           width="300px"
           height="400px"
           src={`http://localhost:1337${url}`}
-          onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
         <Box
@@ -69,9 +66,9 @@ const Item = ({ item, width }) => {
               onClick={() => {
                 dispatch(addToCart({ item: { ...item, count } }));
               }}
-              sx={{ backgroundColor: shades.primary[300], color: "white" }}
+              sx={{ backgroundColor: shades.secondary[800], color: "white" }}
             >
-              Order
+              Order           
             </Button>
           </Box>
         </Box>
@@ -83,7 +80,9 @@ const Item = ({ item, width }) => {
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
-        <Typography>{title}</Typography>
+        <Typography fontWeight="bold">{title}</Typography>        
+        <Typography >{description}</Typography>
+
         <Typography fontWeight="bold">${price}</Typography>
       </Box>
     </Box>

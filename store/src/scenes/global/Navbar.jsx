@@ -1,12 +1,13 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
 import {
   ShoppingBagOutlined,
-  MenuOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
+import logo from '../../assets/logo/logo.png'
 
 function Navbar() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Navbar() {
       position="fixed"
       top="0"
       left="0"
-      zIndex="1"
+      zIndex="2"
     >
       <Box
         width="80%"
@@ -38,7 +39,9 @@ function Navbar() {
           sx={{ "&:hover": { cursor: "pointer" } }}
           color={shades.secondary[500]}
         >
-          Creme de la creme
+          <img src={logo} alt="logo-picture" width="64px"></img>
+          
+          
         </Box>
         <Box
           display="flex"
@@ -69,7 +72,6 @@ function Navbar() {
             </IconButton>
           </Badge>
           <IconButton sx={{ color: "black" }}>
-            <MenuOutlined />
           </IconButton>
         </Box>
       </Box>

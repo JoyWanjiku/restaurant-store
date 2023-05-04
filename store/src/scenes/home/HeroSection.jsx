@@ -16,7 +16,7 @@ export const heroTextureImports = importAll(
   require.context("../../assets", false, /\.(png|jpe?g|svg)$/)
 );
 
-const MainCarousel = () => {
+const HeroSection = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Carousel
@@ -80,7 +80,7 @@ const MainCarousel = () => {
             margin={isNonMobile ? undefined : "0 auto"}
             maxWidth={isNonMobile ? undefined : "240px"}
           >
-            <Typography color={shades.secondary[200]}>Welcome to Creme de la Creme</Typography>
+            <Typography color={shades.secondary[300]}>Welcome to Crème de la Crème</Typography>
             <Typography variant="h1" > fresh, tasty, healthy food</Typography>
           
           </Box>
@@ -90,4 +90,4 @@ const MainCarousel = () => {
   );
 };
 
-export default MainCarousel;
+export default HeroSection;

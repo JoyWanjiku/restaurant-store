@@ -63,11 +63,11 @@ const CartMenu = () => {
           {/* CART LIST */}
           <Box>
             {cart.map((item) => (
-              <Box key={`${item.attributes.name}-${item.id}`}>
+              <Box key={`${item.attributes.title}-${item.id}`}>
                 <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
-                      alt={item?.name}
+                      alt={item?.title}
                       width="123px"
                       height="164px"
                       src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
@@ -76,7 +76,7 @@ const CartMenu = () => {
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
                       <Typography fontWeight="bold">
-                        {item.attributes.name}
+                        {item.attributes.title}
                       </Typography>
                       <IconButton
                         onClick={() =>
@@ -86,7 +86,6 @@ const CartMenu = () => {
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography>{item.attributes.shortDescription}</Typography>
                     <FlexBox m="15px 0">
                       <Box
                         display="flex"
@@ -128,12 +127,31 @@ const CartMenu = () => {
             </FlexBox>
             <Button
               sx={{
-                backgroundColor: shades.primary[700],
+                backgroundColor: shades.primary[300],
                 color: "white",
                 borderRadius: 0,
                 minWidth: "100%",
                 padding: "20px 40px",
                 m: "20px 0",
+                "&:hover": { color: "black" } 
+
+              }}
+              onClick={() => {
+                navigate("/");
+                dispatch(setIsCartOpen({}));
+              }}
+            >
+              KEEP SHOPPING
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: shades.secondary[600],
+                color: "white",
+                borderRadius: 0,
+                minWidth: "100%",
+                padding: "20px 40px",
+                m: "20px 0",
+                "&:hover": { color: "black" } 
               }}
               onClick={() => {
                 navigate("/checkout");
@@ -141,7 +159,8 @@ const CartMenu = () => {
               }}
             >
               CHECKOUT
-            </Button>
+            </Button> 
+           
           </Box>
         </Box>
       </Box>

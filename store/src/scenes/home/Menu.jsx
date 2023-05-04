@@ -8,7 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
 
-const ShoppingList = () => { //chnage to ProductList
+const Menu = () => { 
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const items = useSelector((state) => state.cart.items);
@@ -96,4 +96,4 @@ const ShoppingList = () => { //chnage to ProductList
   );
 };
 
-export default ShoppingList;
+export default Menu;
