@@ -9,9 +9,8 @@ import Shipping from "./Shipping";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
-  "pk_test_51LgU7yConHioZHhlAcZdfDAnV9643a7N1CMpxlKtzI1AUWLsRyrord79GYzZQ6m8RzVnVQaHsgbvN1qSpiDegoPi006QkO0Mlc"
+"pk_test_51N4410BEiacPJDtle7aMWiBqwNNVojlwfFO9XxNbGeIeJqh4WfWllv0lanRfifMB9jk8SVL4YC8OqLCVfhUK77PT00qFvSpNIn"
 );
-
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
@@ -21,7 +20,13 @@ const Checkout = () => {
   const handleFormSubmit = async (values, actions) => {
     setActiveStep(activeStep + 1);
 
-  
+    // this copies the billing address onto shipping address
+    if (isFirstStep && values.shippingAddress.isSameAddress) {
+      actions.setFieldValue("shippingAddress", {
+        ...values.billingAddress,
+        isSameAddress: true,
+      });
+    }
 
     if (isSecondStep) {
       makePayment(values);
@@ -41,7 +46,7 @@ const Checkout = () => {
       })),
     };
 
-    const response = await fetch("http://localhost:2000/api/orders", {
+    const response = await fetch("http://localhost:3000/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
@@ -99,7 +104,7 @@ const Checkout = () => {
                 />
               )}
               <Box display="flex" justifyContent="space-between" gap="50px">
-                {!isFirstStep && (
+                {isSecondStep && (
                   <Button
                     fullWidth
                     color="primary"
@@ -122,15 +127,14 @@ const Checkout = () => {
                   color="primary"
                   variant="contained"
                   sx={{
-                    backgroundColor: shades.secondary[600],
+                    backgroundColor: shades.secondary[400],
                     boxShadow: "none",
                     color: "white",
                     borderRadius: 0,
                     padding: "15px 40px",
-                    "&:hover": { color: "black",  backgroundColor: shades.secondary[600],} 
-                  }}
+                  }}  
                 >
-                  {!isSecondStep ? "Next" : "Place Order"}
+                  {isFirstStep ? "Next" : "Place Order"}
                 </Button>
               </Box>
             </form>
@@ -143,6 +147,17 @@ const Checkout = () => {
 
 const initialValues = {
   billingAddress: {
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
+  shippingAddress: {
+    isSameAddress: true,
     firstName: "",
     lastName: "",
     country: "",
@@ -168,7 +183,38 @@ const checkoutSchema = [
       state: yup.string().required("required"),
       zipCode: yup.string().required("required"),
     }),
-    
+    shippingAddress: yup.object().shape({
+      isSameAddress: yup.boolean(),
+      firstName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      lastName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      country: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      street1: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      street2: yup.string(),
+      city: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      state: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      zipCode: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+    }),
   }),
   yup.object().shape({
     email: yup.string().required("required"),

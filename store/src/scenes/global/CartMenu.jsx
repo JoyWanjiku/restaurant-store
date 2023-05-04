@@ -9,10 +9,9 @@ import {
   decreaseCount,
   increaseCount,
   removeFromCart,
-  setIsCartOpen,
+  setIsCartOpen
 } from "../../state";
 import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "./FormatCurrency";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -109,7 +108,7 @@ const CartMenu = () => {
                         </IconButton>
                       </Box>
                       <Typography fontWeight="bold">
-                        {formatCurrency(item.attributes.price)}
+                        ${item.attributes.price}
                       </Typography>
                     </FlexBox>
                   </Box>
@@ -123,8 +122,26 @@ const CartMenu = () => {
           <Box m="20px 0">
             <FlexBox m="20px 0">
               <Typography fontWeight="bold">SUBTOTAL</Typography>
-              <Typography fontWeight="bold">{formatCurrency(totalPrice)}</Typography>
+              <Typography fontWeight="bold">${totalPrice}</Typography>
             </FlexBox>
+          
+            <Button
+              sx={{
+                backgroundColor: shades.secondary[600],
+                color: "white",
+                borderRadius: 0,
+                minWidth: "100%",
+                padding: "20px 40px",
+                m: "20px 0",
+                "&:hover": { color: "black" } 
+              }}
+              onClick={() => {
+                navigate("/checkout");
+                dispatch(setIsCartOpen({}));
+              }}
+            >
+              CHECKOUT
+            </Button> 
             <Button
               sx={{
                 backgroundColor: shades.primary[300],
@@ -143,24 +160,6 @@ const CartMenu = () => {
             >
               KEEP SHOPPING
             </Button>
-            <Button
-              sx={{
-                backgroundColor: shades.secondary[600],
-                color: "white",
-                borderRadius: 0,
-                minWidth: "100%",
-                padding: "20px 40px",
-                m: "20px 0",
-                "&:hover": { color: "black" } 
-              }}
-              onClick={() => {
-                navigate("/checkout");
-                dispatch(setIsCartOpen({}));
-              }}
-            >
-              CHECKOUT
-            </Button> 
-           
           </Box>
         </Box>
       </Box>
