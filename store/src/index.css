@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Fauna+One&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
-
-*{
+* {
   box-sizing: border-box;
 }
 
-body{
+/* Remove default margin and padding from body */
+body {
   margin: 0;
   padding: 0;
 }
 
-.app{
+/* .app centerd horizontally */
+.app {
   margin: auto;
 }

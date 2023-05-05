@@ -20,10 +20,15 @@ const Menu = () => {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
-      { method: "GET" }
+      "http://localhost:1337/api/items?populate=image" ,
+      { method: "GET" } 
     );
     const itemsJson = await items.json();
+      // Add alt attribute to each image object
+  itemsJson.data.forEach(item => {
+    item.image.alt = "food-images"; 
+  });
+
     dispatch(setItems(itemsJson.data));
   }
 

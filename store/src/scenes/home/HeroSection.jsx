@@ -81,7 +81,7 @@ const HeroSection = () => {
             maxWidth={isNonMobile ? undefined : "240px"}
           >
             <Typography color={shades.secondary[300]}>Welcome to Crème de la Crème</Typography>
-            <Typography variant="h1" > fresh, tasty, healthy food</Typography>
+            <Typography variant="h1" > FRESH, TASTY, HEALTHY FOOD</Typography>
           
           </Box>
         </Box>

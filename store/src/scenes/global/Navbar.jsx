@@ -1,55 +1,27 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
-import {
-  ShoppingBagOutlined,
-} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { ShoppingBagOutlined} from "@mui/icons-material";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import logo from '../../assets/logo/logo.png'
+import '../../styling/Navbar.css'
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      width="100%"
-      height="60px"
-      backgroundColor="rgba(255, 255, 255, 0.95)"
-      color="black"
-      position="fixed"
-      top="0"
-      left="0"
-      zIndex="2"
-    >
-      <Box
-        width="80%"
-        margin="auto"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box
-          onClick={() => navigate("/")}
-          sx={{ "&:hover": { cursor: "pointer" } }}
-          color={shades.secondary[500]}
-        >
+    <Box className="navContainer">
+      <Box className="navContent">
+        <Link to="/">
+        <Box className="logoImg"color={shades.secondary[500]} >
           <img src={logo} alt="logo-picture" width="64px"></img>
-          
-          
         </Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          columnGap="20px"
-          zIndex="2"
-        >
-         
+        </Link>
+        
+        <Box>
           <Badge
             badgeContent={cart.length}
             color="secondary"
@@ -71,8 +43,6 @@ function Navbar() {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }}>
-          </IconButton>
         </Box>
       </Box>
     </Box>
