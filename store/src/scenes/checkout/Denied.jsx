@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { Link } from "react-router-dom";
 
 const Denied = () => {
   return (
@@ -10,6 +11,16 @@ const Denied = () => {
         Order Failed —{" "}
         <strong>Please try again in Making your Purchase</strong>
       </Alert>
+
+      <Button
+        variant="contained"
+        color="primary"
+        component={Link}
+        to="/"
+        sx={{ mt: 3 ,"&:hover": { cursor: "pointer"  , backgroundColor: "#4C8958"}}}
+      >
+        Go back to home
+      </Button>
     </Box>
   );
 };

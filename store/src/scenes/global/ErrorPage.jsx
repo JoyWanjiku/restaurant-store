@@ -17,9 +17,8 @@ const ErrorPage = () => {
     >
         <img src={error} alt="404-error-image" 
               height= "300px"
-              objectFit= "cover"
-              backgroundAttachment= "fixed"
-              maxWidth={isNonMobile ? "50%" : "100%"}
+              
+              width={isNonMobile ? "50%" : "100%"}
             >
             
         </img>

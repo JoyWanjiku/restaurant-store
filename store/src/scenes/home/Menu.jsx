@@ -49,7 +49,7 @@ const Menu = () => {
       </Typography>
       <Tabs
         textColor="primary"
-        indicatorColor="primary"
+        indicatorColor="secondary"
         value={value}
         onChange={handleChange}
         centered

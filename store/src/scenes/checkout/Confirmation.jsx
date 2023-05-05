@@ -12,9 +12,14 @@ const Confirmation = () => {
         <strong>Congrats on Making your Purchase</strong>
       </Alert>
       <Link to="/">
-      <Button 
+      <Button
+        variant="contained"
+        color="primary"
+        component={Link}
+        to="/"
+        sx={{ mt: 3 ,"&:hover": { cursor: "pointer"  , backgroundColor: "#4C8958"}}}
       >
-        Back to Home Page
+        Go back to home
       </Button>
       </Link>
     </Box>
