@@ -4,14 +4,13 @@ import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
-import { addToCart } from "../state";
+import { addToCart } from "../state/index.js";
 
 const Item = ({ item, width }) => {
   const dispatch = useDispatch();
-  const [count, setCount] = useState(1);
-  const [isHovered, setIsHovered] = useState(false);
+  const [count, setCount] = useState(0);
   const {
-    palette: { neutral },
+    palette: { secondary },
   } = useTheme();
 
   const { diet, price, title, image, description } = item.attributes;
@@ -27,11 +26,7 @@ const Item = ({ item, width }) => {
 
   return (
     <Box width={width}>
-      <Box
-        position="relative"
-        onMouseOver={() => setIsHovered(true)}
-        onMouseOut={() => setIsHovered(false)}
-      >
+      <Box position="relative">
         <img
           alt={item.title}
           width="300px"
@@ -40,7 +35,7 @@ const Item = ({ item, width }) => {
           style={{ cursor: "pointer" }}
         />
         <Box
-          display={isHovered ? "block" : "none"}
+          display="block"
           position="absolute"
           bottom="10%"
           left="0"
@@ -54,7 +49,7 @@ const Item = ({ item, width }) => {
               backgroundColor={shades.neutral[100]}
               borderRadius="3px"
             >
-              <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
+              <IconButton onClick={() => setCount(Math.max(count - 1, 0))}>
                 <RemoveIcon />
               </IconButton>
               <Typography color={shades.primary[300]}>{count}</Typography>
@@ -62,26 +57,28 @@ const Item = ({ item, width }) => {
                 <AddIcon />
               </IconButton>
             </Box>
-            <Button
-              onClick={() => {
-                dispatch(addToCart({ item: { ...item, count } }));
-              }}
-              sx={{ backgroundColor: shades.secondary[800], color: "white" }}
-            >
-              Order           
-            </Button>
+            {count > 0 && (
+              <Button
+                onClick={() => {
+                  dispatch(addToCart({ item: { ...item, count } }));
+                }}
+                sx={{ backgroundColor: shades.secondary[800], color: "white" }}
+              >
+                Order
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
 
       <Box mt="3px">
-        <Typography variant="subtitle2" color={neutral.dark}>
+        <Typography variant="subtitle2" color={secondary.main}>
           {diet
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
-        <Typography fontWeight="bold">{title}</Typography>        
-        <Typography >{description}</Typography>
+        <Typography fontWeight="bold">{title}</Typography>
+        <Typography>{description}</Typography>
 
         <Typography fontWeight="bold">${price}</Typography>
       </Box>

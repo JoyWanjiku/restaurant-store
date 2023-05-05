@@ -7,6 +7,7 @@ import Navbar from "./scenes/global/Navbar";
 import CartMenu from "./scenes/global/CartMenu";
 import Footer from "./scenes/global/Footer";
 import Denied from './scenes/checkout/Denied';
+import ErrorPage from './scenes/global/ErrorPage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='checkout' element={<Checkout />} />
         <Route path='checkout/success' element={<Confirmation />} />
         <Route path='checkout/error' element={<Denied />} />
+        <Route path='*' element={<ErrorPage/>}/>
       </Routes>
       <CartMenu/>
       <Footer/>

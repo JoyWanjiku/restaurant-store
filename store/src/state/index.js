@@ -1,28 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"; //lets state mutation not needed
 
 const initialState = {
   isCartOpen: false,
-  cart: [],
-  items: [],
+  cart: [], //added to cart
+  items: [], //items available
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setItems: (state, action) => {
+    setItems (state, action)  {
       state.items = action.payload;
     },
-
-    addToCart: (state, action) => {
-      state.cart = [...state.cart, action.payload.item];
+    addToCart (state, action)  {
+      const { item } = action.payload;
+      const existingItemIndex = state.cart.findIndex(
+        (cartItem) => cartItem.id === item.id
+      );
+    
+      if (existingItemIndex !== -1) {
+        // Item already exists in the cart, update its count
+        state.cart[existingItemIndex].count += item.count;
+      } else {
+        // Item doesn't exist in the cart, add it
+        state.cart.push(item);
+      }
     },
 
-    removeFromCart: (state, action) => {
+    //filter through all items, the item id we want to remove saves
+    // in the action, then it removes only passed item id and not 
+    //other items
+    removeFromCart(state, action)  {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
     },
 
-    increaseCount: (state, action) => {
+    increaseCount (state, action) {
       state.cart = state.cart.map((item) => {
         if (item.id === action.payload.id) {
           item.count++;
@@ -31,17 +44,18 @@ export const cartSlice = createSlice({
       });
     },
 
-    decreaseCount: (state, action) => {
+    decreaseCount (state, action) {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id && item.count > 1) {
+        if (item.id === action.payload.id && item.count > 1) //cannot be less than 1
+        {
           item.count--;
         }
         return item;
       });
     },
 
-    setIsCartOpen: (state) => {
-      state.isCartOpen = !state.isCartOpen;
+    setIsCartOpen (state) {
+      state.isCartOpen = !state.isCartOpen; //flip the current state
     },
   },
 });

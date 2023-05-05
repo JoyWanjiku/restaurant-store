@@ -24,11 +24,6 @@ const Menu = () => {
       { method: "GET" } 
     );
     const itemsJson = await items.json();
-      // Add alt attribute to each image object
-  itemsJson.data.forEach(item => {
-    item.image.alt = "food-images"; 
-  });
-
     dispatch(setItems(itemsJson.data));
   }
 
