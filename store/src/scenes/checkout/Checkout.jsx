@@ -154,11 +154,19 @@ const checkoutSchema = [
   }),
   yup.object().shape({
     payment: yup.object().shape({
-    email: yup.string().required("required"),
-    phoneNumber: yup.string().required("required"),
+    email: yup.string()
+    .required("required")
+    .email("invalid email"),
+    phoneNumber: yup.string()
+    .required("required")
+    .max(12,"invalid phone number"),
     cardName: yup.string().required("required"),
-    cardNumber: yup.string().required("required"),
-    cvc:yup.string().required("required"),
+    cardNumber: yup.string()
+    .max(10, "invalid card number")
+    .required("required"),
+    cvc:yup.string()
+    .max(5, "invalid cvc")
+    .required("required"),
     expirationDate:yup.string().required("required"),
   }), }),
 ];
