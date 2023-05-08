@@ -9,17 +9,17 @@ const Denied = () => {
       <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
         Order Failed —{" "}
-        <strong>Please try again in Making your Purchase</strong>
+        <strong>Please try making your order again</strong>
       </Alert>
 
       <Button
         variant="contained"
         color="primary"
         component={Link}
-        to="/"
+        to="/checkout"
         sx={{ mt: 3 ,"&:hover": { cursor: "pointer"  , backgroundColor: "#4C8958"}}}
       >
-        Go back to home
+        Go back to checkout
       </Button>
     </Box>
   );

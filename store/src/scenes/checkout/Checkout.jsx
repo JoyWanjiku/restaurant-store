@@ -5,28 +5,24 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
-import {useNavigate} from 'react-router-dom'
-
-
+import { resetCart } from "../../redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleFormSubmit = async (values, actions) => {
     setActiveStep(activeStep + 1);
-
-  }  
+  };
 
   function handleClick() {
-    if (isFirstStep) {
-     
-    } else {
-      navigate('/checkout/success');
-    }
+    dispatch(resetCart());
+    navigate("/checkout/success");
   }
 
-  
   return (
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
@@ -102,8 +98,8 @@ const Checkout = () => {
                     color: "white",
                     borderRadius: 0,
                     padding: "15px 40px",
-                  }}  
-                  onClick={handleClick}
+                  }}
+                  onClick={!isFirstStep ? handleClick : undefined}
                 >
                   {isFirstStep ? "Next" : "Place Order"}
                 </Button>
@@ -127,19 +123,17 @@ const initialValues = {
     state: "",
     zipCode: "",
   },
-  payment:{
   email: "",
   phoneNumber: "",
-  cardName:"",
-  cardNumber:"",
-  cvc:"",
-  expirationDate:"",
-  }
+  cardName: "",
+  cardNumber: "",
+  cvc: "",
+  expirationDate: "",
 };
 
 const checkoutSchema = [
   yup.object().shape({
-   shippingAddress: yup.object().shape({
+    shippingAddress: yup.object().shape({
       firstName: yup.string().required("required"),
       lastName: yup.string().required("required"),
       country: yup.string().required("required"),
@@ -149,26 +143,15 @@ const checkoutSchema = [
       state: yup.string().required("required"),
       zipCode: yup.string().required("required"),
     }),
-   
-   
   }),
   yup.object().shape({
-    payment: yup.object().shape({
-    email: yup.string()
-    .required("required")
-    .email("invalid email"),
-    phoneNumber: yup.string()
-    .required("required")
-    .max(12,"invalid phone number"),
+    email: yup.string().required("required").email("invalid email"),
+    phoneNumber: yup.string().required("required"),
     cardName: yup.string().required("required"),
-    cardNumber: yup.string()
-    .max(10, "invalid card number")
-    .required("required"),
-    cvc:yup.string()
-    .max(5, "invalid cvc")
-    .required("required"),
-    expirationDate:yup.string().required("required"),
-  }), }),
+    cardNumber: yup.string().required("required"),
+    cvc: yup.string().required("required"),
+    expirationDate: yup.string().required("required"),
+  }),
 ];
 
 export default Checkout;

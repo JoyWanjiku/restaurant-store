@@ -1,9 +1,22 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import payment from '../../assets/card/payment.jpg'
+import { getIn } from "formik";
 
-const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
+const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const formattedName = (field) => `${type}.${field}`;
+
+  const formattedError = (field) =>
+    Boolean(
+      getIn(touched, formattedName(field)) &&
+        getIn(errors, formattedName(field))
+    );
+
+  const formattedHelper = (field) =>
+    getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
+
+
   return (
     <Box m="30px 0">
       <Box>
@@ -17,9 +30,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.email}
-          name="email"
-          error={!!touched.email && !!errors.email}
-          helperText={touched.email && errors.email}
+          name={formattedName("email")}
+          error={formattedError("email")}
+          helperText={formattedHelper("email")}
           sx={{ gridColumn: "span 4", marginBottom: "15px" }}
         />
         <TextField
@@ -29,9 +42,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.phoneNumber}
-          name="phoneNumber"
-          error={!!touched.phoneNumber && !!errors.phoneNumber}
-          helperText={touched.phoneNumber && errors.phoneNumber}
+          name={formattedName("phoneNumber")}
+          error={formattedError("phoneNumber")}
+          helperText={formattedHelper("phoneNumber")}
           sx={{ gridColumn: "span 4" , marginBottom: "20px" }}
         /> 
 
@@ -46,9 +59,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.cardName}
-          name="cardName"
-          error={!!touched.cardName && !!errors.cardName}
-          helperText={touched.cardName && errors.cardName}
+          name={formattedName("cardName")}
+          error={formattedError("cardName")}
+          helperText={formattedHelper("cardName")}
           sx={{ gridColumn: "span 4" , marginBottom: "15px" }}
         />
         
@@ -59,9 +72,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.cardNumber}
-          name="cardNumber"
-          error={!!touched.cardNumber && !!errors.cardNumber}
-          helperText={touched.cardNumber && errors.cardNumber}
+          name={formattedName("cardNumber")}
+          error={formattedError("cardNumber")}
+          helperText={formattedHelper("cardNumber")}
           sx={{ gridColumn: "span 4" , marginBottom: "15px" }}
         />  
         <TextField
@@ -71,9 +84,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.cvc}
-          name="cvc"
-          error={!!touched.cvc && !!errors.cvc}
-          helperText={touched.cvc && errors.cvc}
+          name={formattedName("cvc")}
+          error={formattedError("cvc")}
+          helperText={formattedHelper("cvc")}
           sx={{ width: '25ch',marginBottom: "15px", marginRight:"20px"}}
         /> 
          <TextField
@@ -83,9 +96,9 @@ const Payment = ({ values, touched, errors, handleBlur, handleChange }) => {
           onBlur={handleBlur}
           onChange={handleChange}
           value={values.expirationDate}
-          name="expirationDate"
-          error={!!touched.expirationDate && !!errors.expirationDate}
-          helperText={touched.expirationDate && errors.expirationDate}
+          name={formattedName("expirationDate")}
+          error={formattedError("expirationDate")}
+          helperText={formattedHelper("expirationDate")}
           sx={{ width: "25ch"  , marginBottom: "15px" }}
         />
         <Box mt={5} marginLeft={isNonMobile ? 40 : 2}>

@@ -4,7 +4,7 @@ import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
-import { addToCart } from "../state/index.js";
+import { addToCart } from "../redux/index.js";
 
 const Item = ({ item, width }) => {
   const dispatch = useDispatch();
