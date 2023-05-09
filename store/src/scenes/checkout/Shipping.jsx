@@ -12,7 +12,7 @@ const Shipping = ({
     <Box m="30px auto">
       <Box>
         <Typography sx={{ mb: "15px" }} fontSize="18px">
-          Shipping Information
+          Delivery Information
         </Typography>
         <AddressForm
           type="shippingAddress"

@@ -3,8 +3,8 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import { shades } from "../../theme";
-import Payment from "./Payment";
 import Shipping from "./Shipping";
+import PaymentInfo from "./PaymentInfo";
 import { resetCart } from "../../redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -27,7 +27,7 @@ const Checkout = () => {
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
         <Step>
-          <StepLabel>Shipping</StepLabel>
+          <StepLabel> Delivery</StepLabel>
         </Step>
         <Step>
           <StepLabel>Payment</StepLabel>
@@ -60,7 +60,7 @@ const Checkout = () => {
                 />
               )}
               {isSecondStep && (
-                <Payment
+                <PaymentInfo
                   values={values}
                   errors={errors}
                   touched={touched}
@@ -114,44 +114,43 @@ const Checkout = () => {
 
 const initialValues = {
   ShippingAddress: {
-    firstName: "",
-    lastName: "",
-    country: "",
+    name: "",
+    co: "",
     street1: "",
-    street2: "",
     city: "",
     state: "",
     zipCode: "",
   },
-  email: "",
+paymentInfo:{ 
+   email: "",
   phoneNumber: "",
   cardName: "",
   cardNumber: "",
   cvc: "",
-  expirationDate: "",
+  expirationDate: "",}
 };
 
 const checkoutSchema = [
   yup.object().shape({
     shippingAddress: yup.object().shape({
-      firstName: yup.string().required("required"),
-      lastName: yup.string().required("required"),
-      country: yup.string().required("required"),
+      name: yup.string().required("required"),
+      co: yup.string(),
       street1: yup.string().required("required"),
-      street2: yup.string(),
       city: yup.string().required("required"),
       state: yup.string().required("required"),
       zipCode: yup.string().required("required"),
     }),
   }),
   yup.object().shape({
+    paymentInfo: yup.object().shape({
+
     email: yup.string().required("required").email("invalid email"),
     phoneNumber: yup.string().required("required"),
     cardName: yup.string().required("required"),
     cardNumber: yup.string().required("required"),
     cvc: yup.string().required("required"),
     expirationDate: yup.string().required("required"),
-  }),
+  }),}),
 ];
 
 export default Checkout;

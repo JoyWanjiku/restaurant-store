@@ -37,39 +37,28 @@ const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="First Name"
+        label=" Name"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.firstName}
-        name={formattedName("firstName")}
-        error={formattedError("firstName")}
-        helperText={formattedHelper("firstName")}
+        value={values?.name}
+        name={formattedName("name")}
+        error={formattedError("name")}
+        helperText={formattedHelper("name")}
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
         fullWidth
         type="text"
-        label="Last Name"
+        label="C/O"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.lastName}
-        name={formattedName("lastName")}
-        error={formattedError("lastName")}
-        helperText={formattedHelper("lastName")}
+        value={values?.co}
+        name={formattedName("co")}
+        error={formattedError("co")}
+        helperText={formattedHelper("co")}
         sx={{ gridColumn: "span 2" }}
       />
-      <TextField
-        fullWidth
-        type="text"
-        label="Country"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values?.country}
-        name={formattedName("country")}
-        error={formattedError("country")}
-        helperText={formattedHelper("country")}
-        sx={{ gridColumn: "span 4" }}
-      />
+      
       <TextField
         fullWidth
         type="text"
@@ -82,18 +71,7 @@ const AddressForm = ({
         helperText={formattedHelper("street1")}
         sx={{ gridColumn: "span 2" }}
       />
-      <TextField
-        fullWidth
-        type="text"
-        label="Street Address 2 (optional)"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values?.street2}
-        name={formattedName("street2")}
-        error={formattedError("street2")}
-        helperText={formattedHelper("street2")}
-        sx={{ gridColumn: "span 2" }}
-      />
+     
       <TextField
         fullWidth
         type="text"

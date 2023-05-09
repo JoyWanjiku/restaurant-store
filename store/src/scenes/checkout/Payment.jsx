@@ -29,7 +29,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="Email"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.email}
+          value={values?.email}
           name={formattedName("email")}
           error={formattedError("email")}
           helperText={formattedHelper("email")}
@@ -41,7 +41,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="Phone Number"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.phoneNumber}
+          value={values?.phoneNumber}
           name={formattedName("phoneNumber")}
           error={formattedError("phoneNumber")}
           helperText={formattedHelper("phoneNumber")}
@@ -58,7 +58,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="Name on Card"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.cardName}
+          value={values?.cardName}
           name={formattedName("cardName")}
           error={formattedError("cardName")}
           helperText={formattedHelper("cardName")}
@@ -71,7 +71,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="Card Number"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.cardNumber}
+          value={values?.cardNumber}
           name={formattedName("cardNumber")}
           error={formattedError("cardNumber")}
           helperText={formattedHelper("cardNumber")}
@@ -83,7 +83,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="CVC"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.cvc}
+          value={values?.cvc}
           name={formattedName("cvc")}
           error={formattedError("cvc")}
           helperText={formattedHelper("cvc")}
@@ -95,7 +95,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           label="Expiration Date"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.expirationDate}
+          value={values?.expirationDate}
           name={formattedName("expirationDate")}
           error={formattedError("expirationDate")}
           helperText={formattedHelper("expirationDate")}

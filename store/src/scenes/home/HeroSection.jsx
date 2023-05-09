@@ -1,27 +1,17 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { shades } from "../../theme";
-
-// imports all images from assets folder
-const importImg = (r) =>
-  r.keys().reduce((acc, item) => {
-    acc[item.replace("./", "")] = r(item);
-    return acc;
-  }, {});
-
-export const heroTextureImports = importImg(
-  require.context("../../assets", false, /\.(png|jpe?g|svg)$/)
-);
+import hero from '../../assets/heroImage.jpg'
 
 const HeroSection = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box>    
-      {Object.values(heroTextureImports).map((texture, index) => (
-        <Box key={`carousel-image-${index}`}>
+      
+        <Box key={`hero-image`}>
           <img
-            src={texture}
-            alt={`carousel-${index}`}
+            src={hero}
+            alt={`hero`}
             style={{
               width: "100%",
               height: "500px",
@@ -47,7 +37,6 @@ const HeroSection = () => {
           
           </Box>
         </Box>
-      ))}
     </Box>
   );
 };
