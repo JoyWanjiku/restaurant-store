@@ -3,12 +3,13 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import { shades } from "../../theme";
-import Shipping from "./address/Shipping";
 import PaymentInfo from "./payment/PaymentInfo";
 import { resetCart } from "../../redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-const Checkout = () => {
+import Pickup from "./pickup/pickup";
+
+const PickUp = () => {
   const [activeStep, setActiveStep] = useState(0);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
@@ -27,7 +28,7 @@ const Checkout = () => {
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
         <Step>
-          <StepLabel> Delivery</StepLabel>
+          <StepLabel> Pick-Up</StepLabel>
         </Step>
         <Step>
           <StepLabel>Payment</StepLabel>
@@ -50,7 +51,7 @@ const Checkout = () => {
           }) => (
             <form onSubmit={handleSubmit}>
               {isFirstStep && (
-                <Shipping
+                <Pickup
                   values={values}
                   errors={errors}
                   touched={touched}
@@ -113,13 +114,10 @@ const Checkout = () => {
 };
 
 const initialValues = {
-  ShippingAddress: {
+  pickUp: {
     name: "",
-    co: "",
-    street1: "",
-    city: "",
-    state: "",
-    zipCode: "",
+    pickUpTime: "",
+    pickUpDate: "",
   },
 paymentInfo:{ 
    email: "",
@@ -132,18 +130,14 @@ paymentInfo:{
 
 const checkoutSchema = [
   yup.object().shape({
-    shippingAddress: yup.object().shape({
+    pickUp: yup.object().shape({
       name: yup.string().required("required"),
-      co: yup.string(),
-      street1: yup.string().required("required"),
-      city: yup.string().required("required"),
-      state: yup.string().required("required"),
-      zipCode: yup.string().required("required"),
+      pickUpDate: yup.string().required("required"),
+      pickUpTime: yup.string().required("required"),
     }),
   }),
   yup.object().shape({
     paymentInfo: yup.object().shape({
-
     email: yup.string().required("required").email("invalid email"),
     phoneNumber: yup.string().required("required"),
     cardName: yup.string().required("required"),
@@ -153,4 +147,4 @@ const checkoutSchema = [
   }),}),
 ];
 
-export default Checkout;
+export default PickUp;

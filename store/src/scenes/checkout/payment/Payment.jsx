@@ -1,6 +1,6 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import payment from '../../assets/card/payment.jpg'
+import payment from '../../../assets/card/payment.jpg'
 import { getIn } from "formik";
 
 const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => {

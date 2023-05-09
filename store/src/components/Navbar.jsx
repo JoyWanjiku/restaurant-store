@@ -17,7 +17,10 @@ function Navbar() {
       <Box className="navContent">
         <Link to="/">
         <Box className="logoImg"color={shades.secondary[500]} >
-          <img src={logo} alt="logo-picture" width="64px"></img>
+          <img src={logo} alt="logo-picture" style={{
+              width: "100%",
+              height: "60px",
+            }}></img>
         </Box>
         </Link>
         

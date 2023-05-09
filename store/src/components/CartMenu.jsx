@@ -1,13 +1,28 @@
-import {Box,Button,Divider,IconButton,TextField,Typography} from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 import { shades } from "../theme";
-import {decreaseCount,increaseCount,removeFromCart,setIsCartOpen} from "../redux";
+import {
+  decreaseCount,
+  increaseCount,
+  removeFromCart,
+  setIsCartOpen,
+} from "../redux";
 import { useNavigate } from "react-router-dom";
 import "../styling/CartMenu.css";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -121,23 +136,57 @@ const CartMenu = () => {
               }}
             ></TextField>
             {cart.length > 0 ? (
-              <Button
-                sx={{
-                  backgroundColor: shades.secondary[600],
-                  color: "white",
-                  borderRadius: 0,
-                  minWidth: "100%",
-                  padding: "20px 40px",
-                  m: "20px 0",
-                  "&:hover": { color: "black" },
-                }}
-                onClick={() => {
-                  navigate("/checkout");
-                  dispatch(setIsCartOpen({}));
-                }}
-              >
-                CHECKOUT
-              </Button>
+              <ButtonGroup sx={{ marginTop: "10px" }}>
+                <Button
+                  variant="filled"
+                  sx={{
+                    backgroundColor: shades.neutral[600],
+                    color: "white",
+                    borderRadius: 0,
+                    minWidth: "100%",
+                    padding: "20px 40px",
+                    m: "20px 0",
+                    "&:hover": { color: "black" },
+                    border: "white solid 8px",
+                    ".MuiButtonGroup-grouped:not(:last-of-type):hover": {
+                      borderRightColor: "#fff",
+                    },
+                    ".MuiButtonGroup-grouped:not(:last-of-type)&:hover": {
+                      borderRightColor: "#fff",
+                    },
+                  }}
+                  onClick={() => {
+                    navigate("/pickup");
+                    dispatch(setIsCartOpen({}));
+                  }}
+                >
+                  <LocalMallIcon />
+                  Pick-Up
+                </Button>
+                <Button
+                  variant="filled"
+                  sx={{
+                    backgroundColor: shades.secondary[600],
+                    color: "white",
+                    borderRadius: 0,
+                    minWidth: "100%",
+                    padding: "20px 40px",
+                    m: "20px 0",
+                    "&:hover": { color: "black" },
+                    border: "white solid 8px",
+                  }}
+                  onClick={() => {
+                    navigate("/checkout");
+                    dispatch(setIsCartOpen({}));
+                  }}
+                >
+                  <LocalShippingIcon
+                    fontSize="small"
+                    sx={{ marginRight: "2px" }}
+                  />
+                  Delivery
+                </Button>
+              </ButtonGroup>
             ) : (
               <Button
                 sx={{

@@ -7,8 +7,9 @@ import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../redux";
+import InfoIcon from "@mui/icons-material/Info";
 
-const Menu = () => { 
+const Menu = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const items = useSelector((state) => state.cart.items);
@@ -20,8 +21,8 @@ const Menu = () => {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image" ,
-      { method: "GET" } 
+      "http://localhost:1337/api/items?populate=image",
+      { method: "GET" }
     );
     const itemsJson = await items.json();
     dispatch(setItems(itemsJson.data));
@@ -39,13 +40,12 @@ const Menu = () => {
   );
   const vegetarianItems = items.filter(
     (item) => item.attributes.diet === "vegetarian"
-  ); 
-
+  );
 
   return (
     <Box width="80%" margin="80px auto">
       <Typography variant="h3" textAlign="center">
-         <b>Menu</b>
+        <b>Menu</b>
       </Typography>
       <Tabs
         textColor="primary"
@@ -83,15 +83,30 @@ const Menu = () => {
             <Item item={item} key={`${item.title}-${item.id}`} />
           ))}
         {value === "glutenFree" &&
-         glutenFreeItems.map((item) => (
+          glutenFreeItems.map((item) => (
             <Item item={item} key={`${item.title}-${item.id}`} />
           ))}
         {value === "vegetarian" &&
           vegetarianItems.map((item) => (
             <Item item={item} key={`${item.title}-${item.id}`} />
           ))}
-          
       </Box>
+      <Box
+        sx={{
+          background: " #99b99942",
+          width: "100%",
+          textAlign: "center",
+          padding: "10px",
+          marginTop: "40px",
+        }}
+      >
+        <Typography>
+          <InfoIcon fontSize="small" sx={{marginRight:"20px"}}/>
+          Please note that we are unable to accommodate substitutions to ensure
+          the quality and consistency of our dishes. Thank you for your
+          understanding.
+        </Typography>
+      </Box>{" "}
     </Box>
   );
 };

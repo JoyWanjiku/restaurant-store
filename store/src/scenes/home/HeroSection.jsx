@@ -12,6 +12,7 @@ const HeroSection = () => {
           <img
             src={hero}
             alt={`hero`}
+            loading="lazy"
             style={{
               width: "100%",
               height: "500px",

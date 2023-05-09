@@ -37,8 +37,8 @@ function Popup({ onAccept }) {
           <Button
             onClick={handleClose}
             sx={{
-              backgroundColor: "red",
-              color: "black",
+              backgroundColor: shades.neutral[600],
+              color: "white",
               fontFamily: "system-ui",
               borderRadius: 0,
               "&:hover": { color: "black" },
