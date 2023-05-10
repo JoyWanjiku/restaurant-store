@@ -2,6 +2,7 @@ import { Box, Typography, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import payment from '../../../assets/card/payment.jpg'
 import { getIn } from "formik";
+import MaskedInput from 'react-text-mask';
 
 const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -16,6 +17,7 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
   const formattedHelper = (field) =>
     getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
 
+    const monthYearMask = [/\d/, /\d/, '/', /\d/, /\d/];
 
   return (
     <Box m="30px 0">
@@ -93,6 +95,13 @@ const Payment = ({type, values, touched, errors, handleBlur, handleChange }) => 
           fullWidth
           type="text"
           label="Expiration Date"
+          InputProps={{
+            inputComponent: MaskedInput,
+            inputProps: {
+              mask: monthYearMask,
+              placeholder: 'MM/YY',
+            },
+          }}
           onBlur={handleBlur}
           onChange={handleChange}
           value={values?.expirationDate}

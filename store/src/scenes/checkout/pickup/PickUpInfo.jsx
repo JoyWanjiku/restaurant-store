@@ -2,6 +2,12 @@ import { getIn } from "formik";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const PickUpInfo = ({
   type,
@@ -25,9 +31,12 @@ const PickUpInfo = ({
   const formattedHelper = (field) =>
     getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
 
+    //sets date and time ahead or same
+  const today = dayjs();
+  const todayStartOfTheDay = today.startOf("day");
+
   return (
     <Box
-      display="grid"
       gap="15px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
       sx={{
@@ -46,35 +55,39 @@ const PickUpInfo = ({
         helperText={formattedHelper("name")}
         sx={{ gridColumn: "span 2" }}
       />
-      
-      
-      <TextField
-        fullWidth
-        type="text"
-        label="Pick-up Date"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values?.pickUpDate}
-        name={formattedName("pickUpDate")}
-        error={formattedError("pickUpDate")}
-        helperText={formattedHelper("pickUpDate")}
-        sx={{ gridColumn: "span 2" }}
-      />
-     
-      <TextField
-        fullWidth
-        type="text"
-        label="Pick-up Time"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values?.pickUpTime}
-        name={formattedName("pickUpTime")}
-        error={formattedError("pickUpTime")}
-        helperText={formattedHelper("pickUpTime")}
-        sx={{ gridColumn: "span 2" , marginBottom:"20px"}}
-      />
-   
-      
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer
+          components={[
+            "DatePicker",
+            "DateTimePicker",
+            "TimePicker",
+            "DateRangePicker",
+          ]}
+          sx={{ gridColumn: "span 2" }}
+
+
+        >
+          <DemoItem label="Pick-up date">
+            <DatePicker
+              defaultValue={today}
+              disablePast
+              views={["year", "month", "day"]}
+              sx={{ gridColumn: "span 2" }}
+              
+            />
+          </DemoItem>
+
+          <DemoItem label="TimePicker">
+            <TimePicker 
+            defaultValue={todayStartOfTheDay}
+            disablePast         
+            sx={{ gridColumn: "span 2" }}
+ />
+          </DemoItem>
+
+        </DemoContainer>
+      </LocalizationProvider>
     </Box>
   );
 };

@@ -1,34 +1,39 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
-import { ShoppingBagOutlined} from "@mui/icons-material";
+import { ShoppingBagOutlined } from "@mui/icons-material";
 import { shades } from "../theme";
 import { setIsCartOpen } from "../redux";
-import logo from '../assets/logo/logo.png'
-import '../styling/Navbar.css'
+import logo from "../assets/logo/logo.png";
+import "../styling/Navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart); 
+  const cart = useSelector((state) => state.cart.cart);
+  const cartItemCount = cart.reduce((total, item) => total + item.count, 0);
 
   return (
     <Box className="navContainer">
       <Box className="navContent">
         <Link to="/">
-        <Box className="logoImg"color={shades.secondary[500]} >
-          <img src={logo} alt="logo-picture" style={{
-              width: "100%",
-              height: "60px",
-            }}></img>
-        </Box>
+          <Box className="logoImg" color={shades.secondary[500]}>
+            <img
+              src={logo}
+              alt="logo-picture"
+              style={{
+                width: "100%",
+                height: "64px",
+              }}
+            ></img>
+          </Box>
         </Link>
-        
+
         <Box>
           <Badge
-            badgeContent={cart.length}
+            badgeContent={cartItemCount}
             color="secondary"
-            invisible={cart.length === 0}
+            invisible={cartItemCount === 0}
             sx={{
               "& .MuiBadge-badge": {
                 right: 5,

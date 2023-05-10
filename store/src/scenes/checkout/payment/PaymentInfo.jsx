@@ -14,7 +14,7 @@ const PaymentInfo = ({
         
         <Payment
           type="paymentInfo"
-          values={values.PaymentInfo}
+          values={values.paymentInfo}
           touched={touched}
           errors={errors}
           handleBlur={handleBlur}

@@ -1,7 +1,8 @@
 import { getIn } from "formik";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import InfoIcon from "@mui/icons-material/Info";
 
 const AddressForm = ({
   type,
@@ -26,6 +27,7 @@ const AddressForm = ({
     getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
 
   return (
+    <Box>
     <Box
       display="grid"
       gap="15px"
@@ -78,7 +80,7 @@ const AddressForm = ({
         label="City"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.city}
+        value="Stockholm"
         name={formattedName("city")}
         error={formattedError("city")}
         helperText={formattedHelper("city")}
@@ -108,6 +110,22 @@ const AddressForm = ({
         helperText={formattedHelper("zipCode")}
         sx={{ gridColumn: "1fr" }}
       />
+     
+    </Box>
+    <Box
+        sx={{
+          background: " #99b99942",
+          width: "100%",
+          textAlign: "center",
+          padding: "10px",
+          marginTop: "40px",
+        }}
+      >
+        <Typography>
+          <InfoIcon fontSize="small" sx={{marginRight:"20px"}}/>
+          Please note that we <b>only</b> deliver in Stockholm. Delivery fee is $8.
+        </Typography>
+      </Box>{" "}
     </Box>
   );
 };

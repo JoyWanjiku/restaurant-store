@@ -99,6 +99,7 @@ const Checkout = () => {
                     borderRadius: 0,
                     padding: "15px 40px",
                   }}
+                  disabled={Object.keys(errors).length > 0} 
                   onClick={!isFirstStep ? handleClick : undefined}
                 >
                   {isFirstStep ? "Next" : "Place Order"}
@@ -117,7 +118,6 @@ const initialValues = {
     name: "",
     co: "",
     street1: "",
-    city: "",
     state: "",
     zipCode: "",
   },
@@ -136,7 +136,6 @@ const checkoutSchema = [
       name: yup.string().required("required"),
       co: yup.string(),
       street1: yup.string().required("required"),
-      city: yup.string().required("required"),
       state: yup.string().required("required"),
       zipCode: yup.string().required("required"),
     }),

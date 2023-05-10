@@ -15,7 +15,7 @@ const PickUp = () => {
   const isSecondStep = activeStep === 1;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleFormSubmit = async (values, actions) => {
+  const handleFormSubmit = async () => {
     setActiveStep(activeStep + 1);
   };
 
@@ -101,6 +101,8 @@ const PickUp = () => {
                     padding: "15px 40px",
                   }}
                   onClick={!isFirstStep ? handleClick : undefined}
+                  disabled={Object.keys(errors).length > 0} 
+
                 >
                   {isFirstStep ? "Next" : "Place Order"}
                 </Button>
@@ -116,8 +118,6 @@ const PickUp = () => {
 const initialValues = {
   pickUp: {
     name: "",
-    pickUpTime: "",
-    pickUpDate: "",
   },
 paymentInfo:{ 
    email: "",
@@ -131,9 +131,7 @@ paymentInfo:{
 const checkoutSchema = [
   yup.object().shape({
     pickUp: yup.object().shape({
-      name: yup.string().required("required"),
-      pickUpDate: yup.string().required("required"),
-      pickUpTime: yup.string().required("required"),
+      name: yup.string().required("Required"),
     }),
   }),
   yup.object().shape({

@@ -14,6 +14,7 @@ const ErrorPage = () => {
       alignItems="center"
       justifyContent="center"
       marginTop={10}
+      marginBottom={10}
     >
         <img src={error} alt="404-error-image" 
               height= "300px"

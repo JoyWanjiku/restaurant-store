@@ -8,7 +8,7 @@ function Footer() {
   } = useTheme();
 
   return (
-    <Box marginTop="70px" padding="20px 0" backgroundColor={neutral.light}>
+    <Box  padding="20px 0" backgroundColor={neutral.light}>
       <Box
         width="100%"
         margin="auto"

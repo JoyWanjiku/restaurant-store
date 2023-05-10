@@ -24,6 +24,16 @@ const Item = ({ item, width }) => {
     },
   } = image;
 
+  const [isAdded, setIsAdded] = useState(false);
+  const handleAddToCart = () => {
+    dispatch(addToCart({ item: { ...item, count } }));
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 3000);
+  };
+
+  
   return (
     <Box width={width}>
       <Box position="relative">
@@ -58,14 +68,13 @@ const Item = ({ item, width }) => {
               </IconButton>
             </Box>
             {count > 0 && (
-              <Button
-                onClick={() => {
-                  dispatch(addToCart({ item: { ...item, count } }));
-                }}
-                sx={{ backgroundColor: shades.secondary[800], color: "white" }}
-              >
-                Order
-              </Button>
+               <Button
+               className="orderBtn"
+               onClick={handleAddToCart}
+               sx={{ backgroundColor: shades.secondary[800], color: "white" }}
+             >
+               {isAdded ? "Added" : "Order"}
+             </Button>
             )}
           </Box>
         </Box>

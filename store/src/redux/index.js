@@ -13,20 +13,21 @@ export const cartSlice = createSlice({
     setItems (state, action)  {
       state.items = action.payload;
     },
-    addToCart (state, action)  {
-      const { item } = action.payload;
-      const existingItemIndex = state.cart.findIndex(
-        (cartItem) => cartItem.id === item.id
-      );
+    addToCart(state, action) {
+      const item = action.payload.item;
+   
+      const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
     
-      if (existingItemIndex !== -1) {
-        // Item already exists in the cart, update its count
-        state.cart[existingItemIndex].count += item.count;
+      if (existingItem) {
+        // If  item  exists , update count
+        existingItem.count += item.count;
       } else {
-        // Item doesn't exist in the cart, add it
+        // Otherwise, add the item to the cart
         state.cart.push(item);
       }
+    
     },
+    
 
     //filter through all items, the item id we want to remove saves
     // in the action, then it removes only passed item id and not 

@@ -8,7 +8,7 @@ const HeroSection = () => {
   return (
     <Box>    
       
-        <Box key={`hero-image`}>
+        <Box key={`hero-image`} marginLeft="-25px">
           <img
             src={hero}
             alt={`hero`}
