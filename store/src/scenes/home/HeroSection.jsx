@@ -1,18 +1,17 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { shades } from "../../theme";
-import hero from '../../assets/heroImage.jpg'
+import hero from '../../assets/webp/heroImage.webp'
 
 const HeroSection = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box>    
-      
         <Box key={`hero-image`} marginLeft="-25px">
           <img
             src={hero}
             alt={`hero`}
-            loading="lazy"
+            loading="eager"
             style={{
               width: "100%",
               height: "500px",

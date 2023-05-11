@@ -2,9 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
 import { ShoppingBagOutlined } from "@mui/icons-material";
-import { shades } from "../theme";
 import { setIsCartOpen } from "../redux";
-import logo from "../assets/logo/logo.png";
+import logo from "../assets/webp/logo.webp";
 import "../styling/Navbar.css";
 import { Link } from "react-router-dom";
 
@@ -17,7 +16,7 @@ function Navbar() {
     <Box className="navContainer">
       <Box className="navContent">
         <Link to="/">
-          <Box className="logoImg" color={shades.secondary[500]}>
+          <Box className="logoImg">
             <img
               src={logo}
               alt="logo-picture"
@@ -47,6 +46,7 @@ function Navbar() {
             <IconButton
               onClick={() => dispatch(setIsCartOpen({}))}
               sx={{ color: "black" }}
+              aria-label="shopping-cart"
             >
               <ShoppingBagOutlined />
             </IconButton>

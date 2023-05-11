@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
+import {
+  IconButton,
+  Box,
+  Typography,
+  useTheme,
+  Button,
+  Snackbar,
+  Alert,
+  Slide,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
@@ -8,6 +17,7 @@ import { addToCart } from "../redux/index.js";
 
 const Item = ({ item, width }) => {
   const dispatch = useDispatch();
+
   const [count, setCount] = useState(0);
   const {
     palette: { secondary },
@@ -33,7 +43,6 @@ const Item = ({ item, width }) => {
     }, 3000);
   };
 
-  
   return (
     <Box width={width}>
       <Box position="relative">
@@ -59,38 +68,66 @@ const Item = ({ item, width }) => {
               backgroundColor={shades.neutral[100]}
               borderRadius="3px"
             >
-              <IconButton onClick={() => setCount(Math.max(count - 1, 0))}>
+              <IconButton 
+              onClick={() => setCount(Math.max(count - 1, 0))}
+              aria-label="remove"
+              >
                 <RemoveIcon />
               </IconButton>
               <Typography color={shades.primary[300]}>{count}</Typography>
-              <IconButton onClick={() => setCount(count + 1)}>
+              <IconButton 
+              onClick={() => setCount(count + 1)}
+              aria-label="Add"
+              >
                 <AddIcon />
               </IconButton>
             </Box>
             {count > 0 && (
-               <Button
-               className="orderBtn"
-               onClick={handleAddToCart}
-               sx={{ backgroundColor: shades.secondary[800], color: "white" }}
-             >
-               {isAdded ? "Added" : "Order"}
-             </Button>
+              <Button
+                className="orderBtn"
+                onClick={handleAddToCart}
+                sx={{ backgroundColor: shades.secondary[800], color: "white" }}
+              >
+                {isAdded ? "Added" : "Order"}
+              </Button>
             )}
           </Box>
         </Box>
       </Box>
 
-      <Box mt="3px">
-        <Typography variant="subtitle2" color={secondary.main}>
+      <Box mt="6px">
+        <Typography
+         variant="subtitle2"
+         backgroundColor={secondary.second} 
+         sx={{
+          display:"inline",
+          padding:"5px",
+          fontWeight:"bold",
+          color:"white"
+         }}
+          
+          >
           {diet
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
-        <Typography fontWeight="bold">{title}</Typography>
+        <Typography fontWeight="bold" mt="11px">{title}</Typography>
         <Typography>{description}</Typography>
 
         <Typography fontWeight="bold">${price}</Typography>
       </Box>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isAdded}
+        autoHideDuration={3000}
+        TransitionComponent={Slide}
+        onClose={() => setIsAdded(false)}
+      >
+        <Alert variant="filled" severity="success">{`${count}  ${title} added to cart.`}</Alert>
+      </Snackbar>
     </Box>
   );
 };

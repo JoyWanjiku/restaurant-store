@@ -32,11 +32,12 @@ function App() {
     
       return null;
     };
+
   return (
     <div className="app">
       <BrowserRouter>
-      <ScrollToTop/>
         <Navbar />
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="checkout" element={<Checkout />} />

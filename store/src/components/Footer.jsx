@@ -47,7 +47,7 @@ function Footer() {
           </Typography>
           <Typography mb="5px">MON - FRI: 10-22</Typography>
           <Typography mb="5px">SAT: 12-18</Typography>
-          <Typography color="red">SUNDAY: CLOSED</Typography>
+          <Typography >SUNDAY: CLOSED</Typography>
         </Box>
       </Box>
     </Box>

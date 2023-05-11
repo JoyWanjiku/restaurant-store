@@ -44,11 +44,11 @@ const Menu = () => {
 
   return (
     <Box width="80%" margin="80px auto">
-      <Typography variant="h3" textAlign="center">
+      <Typography variant="h3" textAlign="center" padding="20px" color="white" sx={{backgroundColor:"#43a047"}}>
         <b>Menu</b>
       </Typography>
       <Tabs
-        textColor="primary"
+        textColor="inherit"
         indicatorColor="secondary"
         value={value}
         onChange={handleChange}

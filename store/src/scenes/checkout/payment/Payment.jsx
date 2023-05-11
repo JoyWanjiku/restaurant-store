@@ -1,6 +1,6 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import payment from '../../../assets/card/payment.jpg'
+import payment from '../../../assets/webp/payment.webp'
 import { getIn } from "formik";
 import MaskedInput from 'react-text-mask';
 
