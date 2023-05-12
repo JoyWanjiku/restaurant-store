@@ -9,7 +9,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
-    const { products, username, email } = ctx.request.body;
+    const { products } = ctx.request.body;
     try {
       // retrieve item information
       const lineItems = await Promise.all(
@@ -24,9 +24,9 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
               product_data: {
                 name: item.title,
               },
-              unit_amount: item.price * 100,
+              unit_amount: Math.round(item.price * 100),
             },
-            quantity: product.count,
+            quantity: product.quantity,
           };
         })
       );
@@ -36,21 +36,22 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         payment_method_types: ["card"],
         customer_email: email,
         mode: "payment",
-        success_url: "http://localhost:3000/checkout/success",
-        cancel_url: "http://localhost:3000",
+        success_url: `${process.env.CLIENT_URL}?success=true`,
+        cancel_url: `${process.env.CLIENT_URL}?success=false`,
         line_items: lineItems,
       });
 
-      // create the item
+      // create the item LINEITEM, SESSIONID, ITEMS
       await strapi
         .service("api::order.order")
-        .create({ data: { username, products, stripeSessionId: session.id } });
+        .create({ data: { products, stripeId: session.id } });
 
       // return the session id
-      return { id: session.id };
+      return { stripeSession: session };
     } catch (error) {
       ctx.response.status = 500;
       return { error: { message: "There was a problem creating the charge" } };
     }
-  },
+  }
+  
 }));

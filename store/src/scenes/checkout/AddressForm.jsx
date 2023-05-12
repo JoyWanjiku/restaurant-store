@@ -1,8 +1,7 @@
 import { getIn } from "formik";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import InfoIcon from "@mui/icons-material/Info";
 
 const AddressForm = ({
   type,
@@ -27,7 +26,6 @@ const AddressForm = ({
     getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
 
   return (
-    <Box>
     <Box
       display="grid"
       gap="15px"
@@ -39,48 +37,70 @@ const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label=" Name"
+        label="First Name"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.name}
-        name={formattedName("name")}
-        error={formattedError("name")}
-        helperText={formattedHelper("name")}
+        value={values.firstName}
+        name={formattedName("firstName")}
+        error={formattedError("firstName")}
+        helperText={formattedHelper("firstName")}
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
         fullWidth
         type="text"
-        label="C/O"
+        label="Last Name"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.co}
-        name={formattedName("co")}
-        error={formattedError("co")}
-        helperText={formattedHelper("co")}
+        value={values.lastName}
+        name={formattedName("lastName")}
+        error={formattedError("lastName")}
+        helperText={formattedHelper("lastName")}
         sx={{ gridColumn: "span 2" }}
       />
-      
+      <TextField
+        fullWidth
+        type="text"
+        label="Country"
+        onBlur={handleBlur}
+        onChange={handleChange}
+        value={values.country}
+        name={formattedName("country")}
+        error={formattedError("country")}
+        helperText={formattedHelper("country")}
+        sx={{ gridColumn: "span 4" }}
+      />
       <TextField
         fullWidth
         type="text"
         label="Street Address"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.street1}
+        value={values.street1}
         name={formattedName("street1")}
         error={formattedError("street1")}
         helperText={formattedHelper("street1")}
         sx={{ gridColumn: "span 2" }}
       />
-     
+      <TextField
+        fullWidth
+        type="text"
+        label="Street Address 2 (optional)"
+        onBlur={handleBlur}
+        onChange={handleChange}
+        value={values.street2}
+        name={formattedName("street2")}
+        error={formattedError("street2")}
+        helperText={formattedHelper("street2")}
+        sx={{ gridColumn: "span 2" }}
+      />
       <TextField
         fullWidth
         type="text"
         label="City"
         onBlur={handleBlur}
         onChange={handleChange}
-        value="Stockholm"
+        value={values.city}
         name={formattedName("city")}
         error={formattedError("city")}
         helperText={formattedHelper("city")}
@@ -92,7 +112,7 @@ const AddressForm = ({
         label="State"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.state}
+        value={values.state}
         name={formattedName("state")}
         error={formattedError("state")}
         helperText={formattedHelper("state")}
@@ -104,28 +124,12 @@ const AddressForm = ({
         label="Zip Code"
         onBlur={handleBlur}
         onChange={handleChange}
-        value={values?.zipCode}
+        value={values.zipCode}
         name={formattedName("zipCode")}
         error={formattedError("zipCode")}
         helperText={formattedHelper("zipCode")}
         sx={{ gridColumn: "1fr" }}
       />
-     
-    </Box>
-    <Box
-        sx={{
-          background: " #99b99942",
-          width: "100%",
-          textAlign: "center",
-          padding: "10px",
-          marginTop: "40px",
-        }}
-      >
-        <Typography>
-          <InfoIcon fontSize="small" sx={{marginRight:"20px"}}/>
-          Please note that we <b>only</b> deliver in Stockholm. Delivery fee is $8.
-        </Typography>
-      </Box>{" "}
     </Box>
   );
 };
