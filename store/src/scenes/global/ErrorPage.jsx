@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
-import error from '../../assets/webp/error.webp'
+import error from '../../assets/webp/denied.webp'
 
 const ErrorPage = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");

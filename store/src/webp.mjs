@@ -4,7 +4,7 @@ import webp from 'imagemin-webp';
 const outputFolder = './assets/webp';
 
 const produceWebP = async () => {
-  await imagemin(['assets/*.png', 'assets/logo/*.png'], {
+  await imagemin(['assets/*.png', 'assets/logo/*.png', 'assets/payment/*.png'], {
     destination: outputFolder,
     plugins: [
       webp({

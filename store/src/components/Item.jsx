@@ -40,7 +40,7 @@ const Item = ({ item, width }) => {
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
-    }, 3000);
+    }, 1000);
   };
 
   return (

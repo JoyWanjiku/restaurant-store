@@ -26,7 +26,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
               },
               unit_amount: Math.round(item.price * 100),
             },
-            quantity: product.quantity,
+            quantity: product.count,
           };
         })
       );
@@ -34,10 +34,9 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       // create a stripe session
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
-        customer_email: email,
         mode: "payment",
-        success_url: `${process.env.CLIENT_URL}?success=true`,
-        cancel_url: `${process.env.CLIENT_URL}?success=false`,
+        success_url: "http://localhost:3000/checkout/success",
+        cancel_url: "http://localhost:3000/checkout/failed",
         line_items: lineItems,
       });
 
@@ -49,6 +48,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       // return the session id
       return { stripeSession: session };
     } catch (error) {
+      console.error(error);
       ctx.response.status = 500;
       return { error: { message: "There was a problem creating the charge" } };
     }
