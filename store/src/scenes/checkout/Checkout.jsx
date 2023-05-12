@@ -36,10 +36,11 @@ const Checkout = () => {
   const stripePromise = loadStripe(
     "pk_test_51N4410BEiacPJDtle7aMWiBqwNNVojlwfFO9XxNbGeIeJqh4WfWllv0lanRfifMB9jk8SVL4YC8OqLCVfhUK77PT00qFvSpNIn"
   );
-  const handlePayment = async () => {
+  const handlePayment = async (values) => {
     try {
       const stripe = await stripePromise;
       const res = await makeRequest.post("/orders", {
+        email:values.email,
         products:cart.map(({id, count})=>({
           id, count,
         })),
