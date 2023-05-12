@@ -2,8 +2,14 @@ import { Box, Typography, useMediaQuery } from "@mui/material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { shades } from "../../theme";
 import hero from '../../assets/webp/heroImage.webp'
+import { useEffect } from "react";
+
 
 const HeroSection = () => {
+useEffect(() => {
+  const img = new Image();
+  img.src = hero;
+}, []);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box>    

@@ -10,3 +10,13 @@ module.exports = [
   'strapi::favicon',
   'strapi::public',
 ];
+module.exports = ({ env }) => ({
+  settings: {
+    cache: {
+      enabled: true,
+      maxAge: 31536000, // 1 year in seconds
+      cacheControl: 'public',
+    },
+  },
+});
+
