@@ -18,21 +18,13 @@ const Checkout = () => {
   const handleFormSubmit = async (values, actions) => {
     setActiveStep(activeStep + 1);
 
-    // this copies the billing address onto shipping address
-    if (isFirstStep && values.shippingAddress.isSameAddress) {
-      actions.setFieldValue("shippingAddress", {
-        ...values.billingAddress,
-        isSameAddress: true,
-      });
-    }
-
     if (isSecondStep) {
       handlePayment(values);
     }
 
     actions.setTouched({});
   };
-  
+
   const stripePromise = loadStripe(
     "pk_test_51N4410BEiacPJDtle7aMWiBqwNNVojlwfFO9XxNbGeIeJqh4WfWllv0lanRfifMB9jk8SVL4YC8OqLCVfhUK77PT00qFvSpNIn"
   );
@@ -40,20 +32,20 @@ const Checkout = () => {
     try {
       const stripe = await stripePromise;
       const res = await makeRequest.post("/orders", {
-        email:values.email,
-        products:cart.map(({id, count})=>({
-          id, count,
+        email: values.email,
+        products: cart.map(({ id, count }) => ({
+          id,
+          count,
         })),
       });
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id,
       });
-
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   return (
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
@@ -149,22 +141,11 @@ const initialValues = {
     lastName: "",
     country: "",
     street1: "",
-    street2: "",
     city: "",
     state: "",
     zipCode: "",
   },
-  shippingAddress: {
-    isSameAddress: true,
-    firstName: "",
-    lastName: "",
-    country: "",
-    street1: "",
-    street2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  },
+
   email: "",
   phoneNumber: "",
 };
@@ -172,51 +153,18 @@ const initialValues = {
 const checkoutSchema = [
   yup.object().shape({
     billingAddress: yup.object().shape({
-      firstName: yup.string().required("required"),
-      lastName: yup.string().required("required"),
-      country: yup.string().required("required"),
-      street1: yup.string().required("required"),
-      street2: yup.string(),
-      city: yup.string().required("required"),
-      state: yup.string().required("required"),
-      zipCode: yup.string().required("required"),
-    }),
-    shippingAddress: yup.object().shape({
-      isSameAddress: yup.boolean(),
-      firstName: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      lastName: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      country: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      street1: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      street2: yup.string(),
-      city: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      state: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
-      zipCode: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required"),
-      }),
+      firstName: yup.string().required("Required"),
+      lastName: yup.string().required("Required"),
+      country: yup.string().required("Required"),
+      street1: yup.string().required("Required"),
+      city: yup.string().required("Required"),
+      state: yup.string().required("Required"),
+      zipCode: yup.string().required("Required"),
     }),
   }),
   yup.object().shape({
-    email: yup.string().required("required"),
-    phoneNumber: yup.string().required("required"),
+    email: yup.string().required("Required").email("Invalid email"),
+    phoneNumber: yup.string().required("Required"),
   }),
 ];
 
