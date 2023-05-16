@@ -9,7 +9,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
-    const { products, email } = ctx.request.body;
+    const { products } = ctx.request.body;
     try {
       // retrieve item information
       const lineItems = await Promise.all(
@@ -35,10 +35,13 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        customer_email:email,
         success_url: "http://localhost:3000/checkout/success",
         cancel_url: "http://localhost:3000/checkout/failed",
         line_items: lineItems,
+        billing_address_collection: 'auto',
+        shipping_address_collection: {
+        allowed_countries: ['US', 'CA'],
+    },
       });
 
       // create the item LINEITEM, SESSIONID, ITEMS

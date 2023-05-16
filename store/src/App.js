@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./scenes/home/Home";
-import Checkout from "./scenes/checkout/Checkout";
 import Confirmation from "./scenes/checkout/Confirmation";
 import Navbar from "./components/Navbar";
 import CartMenu from "./components/CartMenu";
@@ -11,6 +10,7 @@ import ErrorPage from "./scenes/global/ErrorPage";
 import { useEffect, useState } from "react";
 import Popup from "./cookies/Popup";
 import PickUp from "./scenes/checkout/PickUp";
+import Payment from "./scenes/checkout/Payment";
 
 function App() {
   const [showCookiePopup, setShowCookiePopup] = useState(true);
@@ -40,8 +40,8 @@ function App() {
         <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="checkout" element={<Checkout />} />
           <Route path="pickup" element={<PickUp />} />
+          <Route path="payment" element={<Payment />} />
           <Route path="checkout/success" element={<Confirmation />} />
           <Route path="checkout/failed" element={<Denied />} />
           <Route path="*" element={<ErrorPage />} />

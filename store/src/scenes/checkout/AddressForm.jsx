@@ -1,124 +1,79 @@
-import { getIn } from "formik";
-import { Box } from "@mui/material";
+
+import { Box, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const AddressForm = ({
-  type,
-  values,
-  touched,
-  errors,
-  handleBlur,
-  handleChange,
-}) => {
+const AddressForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   // these functions allow for better code readability
-  const formattedName = (field) => `${type}.${field}`;
+ 
+  //sets date and time ahead or same
+  const today = dayjs();
+  const todayStartOfTheDay = today.startOf("day");
 
-  const formattedError = (field) =>
-    Boolean(
-      getIn(touched, formattedName(field)) &&
-        getIn(errors, formattedName(field))
-    );
-
-  const formattedHelper = (field) =>
-    getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
-
+ 
   return (
     <Box
-      display="grid"
       gap="15px"
+      width="80%"
+      m="100px auto"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
       sx={{
         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
       }}
     >
+      <Typography variant="h3" sx={{ marginBottom: "20px" }}>
+        Pick-Up Details
+      </Typography>
       <TextField
         fullWidth
         type="text"
-        label="First Name"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.firstName}
-        name={formattedName("firstName")}
-        error={formattedError("firstName")}
-        helperText={formattedHelper("firstName")}
-        sx={{ gridColumn: "span 2" }}
-      />
-      <TextField
-        fullWidth
-        type="text"
-        label="Last Name"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.lastName}
-        name={formattedName("lastName")}
-        error={formattedError("lastName")}
-        helperText={formattedHelper("lastName")}
-        sx={{ gridColumn: "span 2" }}
-      />
-      <TextField
-        fullWidth
-        type="text"
-        label="Country"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.country}
-        name={formattedName("country")}
-        error={formattedError("country")}
-        helperText={formattedHelper("country")}
-        sx={{ gridColumn: "span 4" }}
-      />
-      <TextField
-        fullWidth
-        type="text"
-        label="Street Address"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.street1}
-        name={formattedName("street1")}
-        error={formattedError("street1")}
-        helperText={formattedHelper("street1")}
-        sx={{ gridColumn: "span 2" }}
-      />
-     
-      <TextField
-        fullWidth
-        type="text"
-        label="City"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.city}
-        name={formattedName("city")}
-        error={formattedError("city")}
-        helperText={formattedHelper("city")}
-        sx={{ gridColumn: "span 2" }}
-      />
-      <TextField
-        fullWidth
-        type="text"
-        label="State"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.state}
-        name={formattedName("state")}
-        error={formattedError("state")}
-        helperText={formattedHelper("state")}
-        sx={{ gridColumn: "1fr" }}
-      />
-      <TextField
+        label=" Name"
+        
+        sx={{ gridColumn: "span 2", marginBottom: "15px" }}
+      />  <TextField
         fullWidth
         type="number"
-        label="Zip Code"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.zipCode}
-        name={formattedName("zipCode")}
-        error={formattedError("zipCode")}
-        helperText={formattedHelper("zipCode")}
-        sx={{ gridColumn: "1fr" }}
+        label=" Phone Number"
+        
+        sx={{ gridColumn: "span 2", marginBottom: "15px" }}
       />
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer
+          components={[
+            "DatePicker",
+            "DateTimePicker",
+            "TimePicker",
+            "DateRangePicker",
+          ]}
+          sx={{ gridColumn: "span 2" }}
+        >
+          <DemoItem label="Pick-up date">
+            <DatePicker
+              defaultValue={today}
+              disablePast
+              views={["year", "month", "day"]}
+              sx={{ gridColumn: "span 2" }}
+            />
+          </DemoItem>
+
+          <DemoItem label="TimePicker">
+            <TimePicker
+              defaultValue={todayStartOfTheDay}
+              disablePast
+              sx={{ gridColumn: "span 2" }}
+            />
+          </DemoItem>
+        </DemoContainer>
+      </LocalizationProvider>
     </Box>
   );
 };

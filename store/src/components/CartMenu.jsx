@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import "../styling/CartMenu.css";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import { loadStripe } from "@stripe/stripe-js";
+import { makeRequest } from "../makeRequest";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -38,7 +40,25 @@ const CartMenu = () => {
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.attributes.price;
   }, 0);
-
+  const stripePromise = loadStripe(
+    "pk_test_51N4410BEiacPJDtle7aMWiBqwNNVojlwfFO9XxNbGeIeJqh4WfWllv0lanRfifMB9jk8SVL4YC8OqLCVfhUK77PT00qFvSpNIn"
+  );
+  const handlePayment = async (values) => {
+    try {
+      const stripe = await stripePromise;
+      const res = await makeRequest.post("/orders", {
+        products: cart.map(({ id, count }) => ({
+          id,
+          count,
+        })),
+      });
+      await stripe.redirectToCheckout({
+        sessionId: res.data.stripeSession.id,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Box className="cartContainer" display={isCartOpen ? "block" : "none"}>
       <Box className="cartModal" width="max(400px, 30%)">
@@ -174,7 +194,7 @@ const CartMenu = () => {
                   border: "white solid 8px",
                 }}
                 onClick={() => {
-                  navigate("/checkout");
+                  handlePayment();
                   dispatch(setIsCartOpen({}));
                 } }
               >
