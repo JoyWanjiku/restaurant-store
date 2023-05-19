@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { makeRequest } from "../../makeRequest";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
 const Payment = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const cart = useSelector((state) => state.cart.cart);
   const navigate = useNavigate();
   const stripePromise = loadStripe(
@@ -30,12 +31,12 @@ const Payment = () => {
     }
   };
   return (
-    <Box m="132px 40px">
+    <Box m={isNonMobile ? "132px 148px" : "132px 40px"}>
       
         <Typography sx={{ mb: "15px" }} variant="h3">
           Payment Options
         </Typography>
-        <Box display={"flex"}>
+        <Box display={"flex"} marginTop='6em'>
         <Button
           fullWidth
           type="submit"
@@ -48,13 +49,14 @@ const Payment = () => {
             backgroundColor: shades.secondary[400],
             boxShadow: "none",
             color: "white",
-            borderRadius: 0,
             padding: "15px 40px",
-            border:"solid 8px white"
+            border:"solid 8px white",
+            height:'13em',
+            borderRadius:'3em',
           }}
         >
           <StorefrontIcon/>
-          Pay at restaurant
+          <Typography>Pay at restaurant</Typography>
         </Button>
         <Button
           onClick={handlePayment}
@@ -66,7 +68,8 @@ const Payment = () => {
             backgroundColor: shades.secondary[600],
             boxShadow: "none",
             color: "white",
-            borderRadius: 0,
+            height:'13em',
+            borderRadius:'3em',
             padding: "15px 40px",
             border:"solid 8px white"
           }}

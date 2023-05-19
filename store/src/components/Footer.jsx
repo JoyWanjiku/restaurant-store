@@ -45,9 +45,9 @@ function Footer() {
           <Typography variant="h4" fontWeight="bold" mb="10px">
             Working Hours
           </Typography>
-          <Typography mb="5px">MON - FRI: 10-22</Typography>
-          <Typography mb="5px">SAT: 12-18</Typography>
-          <Typography >SUNDAY: CLOSED</Typography>
+          <Typography mb="5px">TUE - FRI: 10:00 - 22:00</Typography>
+          <Typography mb="5px">SAT: 12:00 - 18:00</Typography>
+          <Typography >SUN - MON: CLOSED</Typography>
         </Box>
       </Box>
     </Box>
