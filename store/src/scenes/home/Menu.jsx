@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,9 +12,9 @@ import InfoIcon from "@mui/icons-material/Info";
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState("all");
+  const [value, setValue] = useState("all");//filter function value
   const items = useSelector((state) => state.cart.items);
-  const breakPoint = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,7 +31,7 @@ const Menu = () => {
 
   useEffect(() => {
     getItems();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const glutenFreeItems = items.filter(
     (item) => item.attributes.diet === "glutenFree"
@@ -53,7 +54,7 @@ const Menu = () => {
         value={value}
         onChange={handleChange}
         centered
-        TabIndicatorProps={{ sx: { display: breakPoint ? "block" : "none" } }}
+        TabIndicatorProps={{ sx: { display: isNonMobile ? "block" : "none" } }}
         sx={{
           m: "25px",
           "& .MuiTabs-flexContainer": {

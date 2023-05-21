@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);//cartSlice and initialstate
   const cartItemCount = cart.reduce((total, item) => total + item.count, 0);
 
   return (

@@ -9,8 +9,6 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./redux";
 
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
   reducer: 

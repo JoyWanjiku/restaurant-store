@@ -10,7 +10,6 @@ import ErrorPage from "./scenes/global/ErrorPage";
 import { useEffect, useState } from "react";
 import Popup from "./cookies/Popup";
 import PickUp from "./scenes/checkout/PickUp";
-import Payment from "./scenes/checkout/Payment";
 
 function App() {
   const [showCookiePopup, setShowCookiePopup] = useState(true);
@@ -41,7 +40,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="pickup" element={<PickUp />} />
-          <Route path="payment" element={<Payment />} />
           <Route path="checkout/success" element={<Confirmation />} />
           <Route path="checkout/failed" element={<Denied />} />
           <Route path="*" element={<ErrorPage />} />

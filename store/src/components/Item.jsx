@@ -15,9 +15,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
 import { addToCart } from "../redux/index.js";
 
-const Item = ({ item, width }) => {
+const Item = ({ item }) => {
   const dispatch = useDispatch();
-
   const [count, setCount] = useState(0);
   const {
     palette: { secondary },
@@ -44,7 +43,7 @@ const Item = ({ item, width }) => {
   };
 
   return (
-    <Box width={width}>
+    <Box >
       <Box position="relative">
         <img
           alt={item.title}
@@ -122,7 +121,7 @@ const Item = ({ item, width }) => {
           horizontal: "right",
         }}
         open={isAdded}
-        autoHideDuration={3000}
+        
         TransitionComponent={Slide}
         onClose={() => setIsAdded(false)}
       >

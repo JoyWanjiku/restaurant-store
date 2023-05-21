@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"; //lets state mutation not needed
+import { createSlice } from "@reduxjs/toolkit"; 
 
 const initialState = {
   isCartOpen: false,
-  cart: [], //added to cart
-  items: [], //items available
+  cart: [], 
+  items: [],
 };
 
 export const cartSlice = createSlice({
@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
 
     //filter through all items, the item id we want to remove saves
     // in the action, then it removes only passed item id and not 
-    //other items
+    //other items 
     removeFromCart(state, action)  {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
     },
